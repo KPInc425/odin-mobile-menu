@@ -1,0 +1,46 @@
+#content {
+    background-color: rgb(25, 25, 65);
+    color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mobileMenu {
+    background-color: grey;
+    text-align: center;
+}
+
+.menuItem, .lastMenuItem {
+    padding-top: 16px;
+    text-decoration: none;
+    border: 3px solid black;
+    height: 32px;
+    width: 150px;
+}
+
+.testing {
+    padding-top: 2000px;
+}
+
+.flexContainer {
+    /* border: 3px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 350px; */
+}
+
+.moreTabContainer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.moreTabHidden {
+    display: none;
+}
+
+.moreTabShow {
+    display: block;
+}
+
