@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-.menuItem, .lastMenuItem, .moreMenu {
+.menuItem, .lastMenuItem, .moreMenu, .moreMenuItem {
     padding-top: 16px;
     text-decoration: none;
     border: 3px solid black;

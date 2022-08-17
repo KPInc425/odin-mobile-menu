@@ -1,12 +1,36 @@
 
 // import './style.css' assert { type: 'css' };
 const src = '../src/media/iLG(pricedown)128px.png';
+
+
+const el_dropDownMenu = () => {
+    const moreMenuContainer = document.querySelector('.moreTabContainer');
+    console.log(moreMenuContainer)
+
+    moreMenuContainer.addEventListener('click', () => {
+        console.log('clicked More Menu');
+        const moreMenuItems = moreMenuContainer.querySelectorAll('.moreMenuItem');
+        console.log(moreMenuItems);
+        moreMenuItems.forEach((item) => {
+
+            if (item.classList.contains('moreTabHidden')) {
+                item.classList.remove('moreTabHidden');
+            } else {
+                item.classList.add('moreTabHidden');
+            }
+        })
+
+    })
+
+}
+
 function mobileMenu() {
     const mobileMenuContainer = document.createElement('nav');
     mobileMenuContainer.classList.add('flexContainer');
 
     const moreTabcontainer = document.createElement('div');
     moreTabcontainer.classList.add('moreTabContainer');
+    moreTabcontainer.classList.add('moreTabHidden');
     // moreTabcontainer.classList.add('menuItem');
 
     // Make this dynamic, recieve total menuitems from outside
@@ -69,22 +93,25 @@ function mobileMenu() {
     return mobileMenuContainer;
 }
 
-const hideElementOnFlexWrap = () => {
+const changeElementOnFlexWrap = () => {
     let contentContainer = document.getElementById('content');
     let moreTabContainer = document.querySelector('.moreTabContainer');
     let shownTabContainer = document.querySelector('.containerShownTabs');
     let windowWidth = document.querySelector('.windowWidth');
     let windowHeight = document.querySelector('.windowHeight');
-    let changeWidth = 1005;
+    let maxWidth;
+    let changeWidth = maxWidth = 1005;
     let lastMenuItem;
     let lastMoreMenuItem;
     window.addEventListener('resize', (e) => {
         // lastMenuItem = document.querySelector('.menuItem:last-of-type');
         // console.log(lastMenuItem);
+        // TESTING
         windowWidth.textContent = `Width: ${window.innerWidth}`;
         windowHeight.textContent = `Height: ${window.innerHeight}`;
         // console.log(`Height: ${window.innerHeight}`);
         // console.log(`Width: ${window.innerWidth}`);
+        // TESTING
 
         if (window.innerWidth < changeWidth) {
             console.log(`smaller than ${changeWidth}`);
@@ -99,15 +126,16 @@ const hideElementOnFlexWrap = () => {
                 console.log(lastMenuItem);
                 lastMenuItem.classList.remove('menuItem');
                 lastMenuItem.remove();
-                lastMenuItem.classList.add('lastMenuItem')
+                lastMenuItem.classList.add('moreMenuItem')
                 lastMenuItem.classList.add('moreTabHidden');
                 moreTabContainer.appendChild(lastMenuItem);
+                moreTabContainer.classList.remove('moreTabHidden');
             }
         }
         
         if (window.innerWidth > (changeWidth + 150)) {
             console.log(`Larger than ${changeWidth}`);
-            lastMoreMenuItem = document.querySelector('.lastMenuItem:last-of-type');
+            lastMoreMenuItem = document.querySelector('.moreMenuItem:last-of-type');
             if (lastMoreMenuItem === null) {
                 console.log('no more More Items');
                 return 0;
@@ -115,22 +143,28 @@ const hideElementOnFlexWrap = () => {
 
                 changeWidth += 150;
                 console.log(lastMoreMenuItem);
-                lastMoreMenuItem.classList.remove('lastMenuItem');
+                lastMoreMenuItem.classList.remove('moreMenuItem');
                 lastMoreMenuItem.classList.remove('moreTabHidden');
                 lastMoreMenuItem.classList.add('menuItem');
                 shownTabContainer.appendChild(lastMoreMenuItem);
+
+                if (window.innerWidth > maxWidth) {
+                    moreTabContainer.classList.add('moreTabHidden');
+                }
             }
 
 
         }
     })
-
+    // TESTING
     contentContainer.appendChild(windowWidth);
     contentContainer.appendChild(windowHeight);
+    // TESTING
 
 }
 
 export {
     mobileMenu,
-    hideElementOnFlexWrap,
+    changeElementOnFlexWrap,
+    el_dropDownMenu,
 }

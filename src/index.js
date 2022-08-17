@@ -1,4 +1,4 @@
-import { hideElementOnFlexWrap, mobileMenu } from './mobileMenu.js';
+import { changeElementOnFlexWrap, el_dropDownMenu, mobileMenu } from './mobileMenu.js';
 // import resetStyles from '../src/reset.css' assert { type: 'css' };
 // import styles from '../src/style.css' assert { type: 'css' };
 // console.log(styles);
@@ -17,8 +17,9 @@ const app = (() => {
     console.log(displayedMenu);
 
     headerContainer.appendChild(displayedMenu);
+    el_dropDownMenu();
 
-    hideElementOnFlexWrap();
+    changeElementOnFlexWrap();
 
 })();
 
