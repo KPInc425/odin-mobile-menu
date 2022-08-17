@@ -1,5 +1,6 @@
 
-const src = './src/media/iLG(pricedown)128px.png';
+// import './style.css' assert { type: 'css' };
+const src = '../src/media/iLG(pricedown)128px.png';
 function mobileMenu() {
     const mobileMenuContainer = document.createElement('nav');
     mobileMenuContainer.classList.add('flexContainer');
@@ -52,7 +53,7 @@ function mobileMenu() {
 
     const menuItemMore = document.createElement('a');
     menuItemMore.setAttribute('href', '#')
-    menuItemMore.classList.add('lastMenuItem');
+    menuItemMore.classList.add('moreMenu');
     menuItemMore.textContent = "More";
 
     mobileMenuContainer.appendChild(menuLogo);
@@ -71,10 +72,12 @@ function mobileMenu() {
 const hideElementOnFlexWrap = () => {
     let contentContainer = document.getElementById('content');
     let moreTabContainer = document.querySelector('.moreTabContainer');
+    let shownTabContainer = document.querySelector('.containerShownTabs');
     let windowWidth = document.querySelector('.windowWidth');
     let windowHeight = document.querySelector('.windowHeight');
     let changeWidth = 1005;
     let lastMenuItem;
+    let lastMoreMenuItem;
     window.addEventListener('resize', (e) => {
         // lastMenuItem = document.querySelector('.menuItem:last-of-type');
         // console.log(lastMenuItem);
@@ -88,15 +91,37 @@ const hideElementOnFlexWrap = () => {
             lastMenuItem = document.querySelector('.menuItem:last-of-type');
             if (lastMenuItem === null) {
                 // Now do it in reverse
+                console.log('no more items');
                 return 0;
+            } else {
+                changeWidth -= 150;
+                console.log(changeWidth);
+                console.log(lastMenuItem);
+                lastMenuItem.classList.remove('menuItem');
+                lastMenuItem.remove();
+                lastMenuItem.classList.add('lastMenuItem')
+                lastMenuItem.classList.add('moreTabHidden');
+                moreTabContainer.appendChild(lastMenuItem);
             }
-            changeWidth -= 150;
-            console.log(lastMenuItem);
-            lastMenuItem.classList.remove('menuItem');
-            lastMenuItem.remove();
-            lastMenuItem.classList.add('lastMenuItem')
-            lastMenuItem.classList.add('moreTabHidden');
-            moreTabContainer.appendChild(lastMenuItem);
+        }
+        
+        if (window.innerWidth > (changeWidth + 150)) {
+            console.log(`Larger than ${changeWidth}`);
+            lastMoreMenuItem = document.querySelector('.lastMenuItem:last-of-type');
+            if (lastMoreMenuItem === null) {
+                console.log('no more More Items');
+                return 0;
+            } else {
+
+                changeWidth += 150;
+                console.log(lastMoreMenuItem);
+                lastMoreMenuItem.classList.remove('lastMenuItem');
+                lastMoreMenuItem.classList.remove('moreTabHidden');
+                lastMoreMenuItem.classList.add('menuItem');
+                shownTabContainer.appendChild(lastMoreMenuItem);
+            }
+
+
         }
     })
 
