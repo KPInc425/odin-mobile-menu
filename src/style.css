@@ -20,6 +20,19 @@
     width: 150px;
 }
 
+.moreItemsContainer {
+    position: relative;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.moreMenuItem {
+    position: absolute;
+    /* left: 0; */
+    /* top: 54px; */
+    background-color: grey;
+}
+
 .testing {
     padding-top: 2000px;
 }
@@ -35,7 +48,6 @@
 .moreTabContainer {
     display: flex;
     flex-direction: column;
-
 }
 
 .moreTabHidden {

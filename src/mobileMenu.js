@@ -8,13 +8,17 @@ const el_dropDownMenu = () => {
     console.log(moreMenuContainer)
 
     moreMenuContainer.addEventListener('click', () => {
-        console.log('clicked More Menu');
+        let previousHeight = 0;
+        // Get ref to MoreMenuItems
         const moreMenuItems = moreMenuContainer.querySelectorAll('.moreMenuItem');
-        console.log(moreMenuItems);
+        // Increment through each item and remove hidden tags and set dynamic top position
         moreMenuItems.forEach((item) => {
-
             if (item.classList.contains('moreTabHidden')) {
                 item.classList.remove('moreTabHidden');
+                // Dynamically set top position based of previous top position
+                let newTop = item.offsetHeight + previousHeight;
+                item.style.top = newTop + 'px';
+                previousHeight = newTop;
             } else {
                 item.classList.add('moreTabHidden');
             }
@@ -28,10 +32,9 @@ function mobileMenu() {
     const mobileMenuContainer = document.createElement('nav');
     mobileMenuContainer.classList.add('flexContainer');
 
-    const moreTabcontainer = document.createElement('div');
-    moreTabcontainer.classList.add('moreTabContainer');
-    moreTabcontainer.classList.add('moreTabHidden');
-    // moreTabcontainer.classList.add('menuItem');
+    const moreTabContainer = document.createElement('div');
+    moreTabContainer.classList.add('moreTabContainer');
+    moreTabContainer.classList.add('moreTabHidden');
 
     // Make this dynamic, recieve total menuitems from outside
     // Wrap everything with a flex container
@@ -87,8 +90,8 @@ function mobileMenu() {
     containerShownTabs.appendChild(menuItem3);
     containerShownTabs.appendChild(menuItem4);
     mobileMenuContainer.appendChild(containerShownTabs)
-    moreTabcontainer.appendChild(menuItemMore)
-    mobileMenuContainer.appendChild(moreTabcontainer);
+    moreTabContainer.appendChild(menuItemMore);
+    mobileMenuContainer.appendChild(moreTabContainer);
 
     return mobileMenuContainer;
 }
@@ -100,54 +103,56 @@ const changeElementOnFlexWrap = () => {
     let windowWidth = document.querySelector('.windowWidth');
     let windowHeight = document.querySelector('.windowHeight');
     let maxWidth;
+    // const itemWidth = document.querySelector('.menuItem').offsetWidth;
     let changeWidth = maxWidth = 1005;
     let lastMenuItem;
     let lastMoreMenuItem;
     window.addEventListener('resize', (e) => {
-        // lastMenuItem = document.querySelector('.menuItem:last-of-type');
-        // console.log(lastMenuItem);
-        // TESTING
         windowWidth.textContent = `Width: ${window.innerWidth}`;
         windowHeight.textContent = `Height: ${window.innerHeight}`;
-        // console.log(`Height: ${window.innerHeight}`);
-        // console.log(`Width: ${window.innerWidth}`);
-        // TESTING
 
+        // check if window width changed by smaller amount than tab/button size (here 150)
         if (window.innerWidth < changeWidth) {
-            console.log(`smaller than ${changeWidth}`);
+            // console.log(`smaller than ${changeWidth}`);
             lastMenuItem = document.querySelector('.menuItem:last-of-type');
+
+            // Prevent changes if there are no more menu items show
             if (lastMenuItem === null) {
-                // Now do it in reverse
-                console.log('no more items');
                 return 0;
             } else {
                 changeWidth -= 150;
-                console.log(changeWidth);
-                console.log(lastMenuItem);
                 lastMenuItem.classList.remove('menuItem');
                 lastMenuItem.remove();
                 lastMenuItem.classList.add('moreMenuItem')
+
+
+                
                 lastMenuItem.classList.add('moreTabHidden');
                 moreTabContainer.appendChild(lastMenuItem);
+                // Dynamically show more menu when it becomes populated
                 moreTabContainer.classList.remove('moreTabHidden');
             }
         }
         
+        // check if window width changed by larger amount than tab/button size (here 150)
         if (window.innerWidth > (changeWidth + 150)) {
-            console.log(`Larger than ${changeWidth}`);
+            // console.log(`Larger than ${changeWidth}`);
             lastMoreMenuItem = document.querySelector('.moreMenuItem:last-of-type');
+            // Prevent changes if there are no more hidden menu items to show
             if (lastMoreMenuItem === null) {
-                console.log('no more More Items');
                 return 0;
             } else {
+                // set new changeWidth by size of tab/button element
+                changeWidth += 150; // change this to itemWidth 
 
-                changeWidth += 150;
-                console.log(lastMoreMenuItem);
+
+                // Remove moreMenu classes > add shownMenu MenuItem class > add tab back into shownTabsContainer 
                 lastMoreMenuItem.classList.remove('moreMenuItem');
                 lastMoreMenuItem.classList.remove('moreTabHidden');
                 lastMoreMenuItem.classList.add('menuItem');
                 shownTabContainer.appendChild(lastMoreMenuItem);
 
+                // Dynamically remove moreMenu based on menu's maxWidth
                 if (window.innerWidth > maxWidth) {
                     moreTabContainer.classList.add('moreTabHidden');
                 }
