@@ -1,14 +1,20 @@
 /* @assert { type: 'css' }; */
 
-#content {
+html {
     background-color: rgb(25, 25, 65);
+}
+
+#content {
+    position: fixed;
     color: white;
-    width: 100%;
-    height: 90vh;
+    /* width: 100vw;
+    height: 100vh; */
+    border: 1px solid red;
+    min-width: 210px;
 }
 
 .mobileMenu {
-    background-color: grey;
+    /* background-color: grey; */
     text-align: center;
 }
 
@@ -30,7 +36,7 @@
     position: absolute;
     /* left: 0; */
     /* top: 54px; */
-    background-color: grey;
+    /* background-color: grey; */
 }
 
 .testing {
@@ -40,14 +46,18 @@
 .flexContainer {
     /* border: 3px solid black; */
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     /* width: 350px; */
+    background-color: grey;
+
 }
 
 .moreTabContainer {
     display: flex;
     flex-direction: column;
+    background-color: grey;
+
 }
 
 .moreTabHidden {
@@ -58,3 +68,20 @@
     display: block;
 }
 
+@media screen and (max-width: 540px) {    
+    .mobileMenu {
+        min-width: 210px;
+    }
+
+    /* .menuItem {
+        position: relative;
+        /* height: 100%; */
+    } */
+}
+
+@media screen and (max-width: 420px) {
+    .flexContainer {
+        justify-content: space-between;
+    }
+    
+}

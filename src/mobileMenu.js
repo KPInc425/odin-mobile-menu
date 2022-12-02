@@ -107,45 +107,55 @@ const changeElementOnFlexWrap = () => {
     let changeWidth = maxWidth = 1005;
     let lastMenuItem;
     let lastMoreMenuItem;
-    window.addEventListener('resize', (e) => {
-        windowWidth.textContent = `Width: ${window.innerWidth}`;
+
+
+    const adjustMenu = () => {
+        windowWidth.textContent = `Width: ${window.outerWidth}`;
         windowHeight.textContent = `Height: ${window.innerHeight}`;
 
         // check if window width changed by smaller amount than tab/button size (here 150)
-        if (window.innerWidth < changeWidth) {
-            // console.log(`smaller than ${changeWidth}`);
-            lastMenuItem = document.querySelector('.menuItem:last-of-type');
 
-            // Prevent changes if there are no more menu items show
-            if (lastMenuItem === null) {
-                return 0;
-            } else {
-                changeWidth -= 150;
+
+        if (window.outerWidth < changeWidth) {
+            console.log(`smaller than ${changeWidth}`);
+            
+
+            const removeMenuItem = () => {
+                lastMenuItem = document.querySelector('.menuItem:last-of-type');
                 lastMenuItem.classList.remove('menuItem');
                 lastMenuItem.remove();
                 lastMenuItem.classList.add('moreMenuItem')
 
-
-                
                 lastMenuItem.classList.add('moreTabHidden');
                 moreTabContainer.appendChild(lastMenuItem);
                 // Dynamically show more menu when it becomes populated
                 moreTabContainer.classList.remove('moreTabHidden');
             }
+
+
+            // Prevent changes if there are no more menu items show
+            if (lastMenuItem === null) {
+                return 0;
+            } else {
+                console.log(((changeWidth - window.outerWidth) / 150).toFixed(0));
+                let loops = ((changeWidth - window.outerWidth) / 150).toFixed(0);
+                if (loops > 0) {
+                    for (let i = 0; i < loops; i++) {
+                        changeWidth -= 150;
+                        removeMenuItem();
+                        console.log(changeWidth);
+                    }
+                }
+
+            }
         }
         
         // check if window width changed by larger amount than tab/button size (here 150)
-        if (window.innerWidth > (changeWidth + 150)) {
+        if (window.outerWidth > (changeWidth + 150)) {
             // console.log(`Larger than ${changeWidth}`);
             lastMoreMenuItem = document.querySelector('.moreMenuItem:last-of-type');
-            // Prevent changes if there are no more hidden menu items to show
-            if (lastMoreMenuItem === null) {
-                return 0;
-            } else {
-                // set new changeWidth by size of tab/button element
-                changeWidth += 150; // change this to itemWidth 
 
-
+            const removeMoreMenuItem = () => {
                 // Remove moreMenu classes > add shownMenu MenuItem class > add tab back into shownTabsContainer 
                 lastMoreMenuItem.classList.remove('moreMenuItem');
                 lastMoreMenuItem.classList.remove('moreTabHidden');
@@ -153,14 +163,28 @@ const changeElementOnFlexWrap = () => {
                 shownTabContainer.appendChild(lastMoreMenuItem);
 
                 // Dynamically remove moreMenu based on menu's maxWidth
-                if (window.innerWidth > maxWidth) {
+                if (window.outerWidth > maxWidth) {
                     moreTabContainer.classList.add('moreTabHidden');
                 }
             }
 
+            // Prevent changes if there are no more hidden menu items to show
+            if (lastMoreMenuItem === null) {
+                return 0;
+            } else {
+                // set new changeWidth by size of tab/button element
+                changeWidth += 150; // change this to itemWidth 
+                removeMoreMenuItem();
+            }
+
 
         }
-    })
+    }
+
+    window.addEventListener('resize', adjustMenu); 
+    window.onload = adjustMenu;
+
+    // alert(window.onload);
     // TESTING
     contentContainer.appendChild(windowWidth);
     contentContainer.appendChild(windowHeight);
