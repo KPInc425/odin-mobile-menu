@@ -47,11 +47,6 @@ function mobileMenu() {
     menuLogo.setAttribute('src', src);
     menuLogo.setAttribute('alt', "iLG Menu Logo");
     menuLogo.classList.add("menuLogo");
-    // menuLogo.classList.add("menuItem");
-    menuLogo.style.width = "54px";
-    menuLogo.style.maxHeight = "54px";
-
-
     
     const homeMenuItem = document.createElement('a');
     homeMenuItem.setAttribute('href', '#')

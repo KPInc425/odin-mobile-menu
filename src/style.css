@@ -1,5 +1,3 @@
-/* @assert { type: 'css' }; */
-
 html {
     background-color: rgb(25, 25, 65);
 }
@@ -7,36 +5,46 @@ html {
 #content {
     position: fixed;
     color: white;
-    /* width: 100vw;
-    height: 100vh; */
-    border: 1px solid red;
     min-width: 210px;
 }
 
-.mobileMenu {
-    /* background-color: grey; */
-    text-align: center;
+.menuLogo {
+    border: 3px outset rgb(23, 107, 146);
+    background-color: rgb(0, 33, 122);
+    border-radius: 12px;
+    width: 48px;
+    max-height: 48px;
 }
+
+.mobileMenu {
+    text-align: center;
+    min-width: 210px;
+}
+
+a {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
 
 .menuItem, .lastMenuItem, .moreMenu, .moreMenuItem {
     padding-top: 16px;
     text-decoration: none;
-    border: 3px solid black;
+    border: 3px outset rgb(23, 107, 146);
     height: 32px;
     width: 150px;
+    background-color: rgb(0, 33, 122);
+    border-radius: 12px;
+
 }
 
 .moreItemsContainer {
     position: relative;
-    /* display: flex;
-    flex-direction: column; */
 }
 
 .moreMenuItem {
     position: absolute;
-    /* left: 0; */
-    /* top: 54px; */
-    /* background-color: grey; */
 }
 
 .testing {
@@ -44,19 +52,15 @@ html {
 }
 
 .flexContainer {
-    /* border: 3px solid black; */
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    /* width: 350px; */
-    background-color: grey;
-
 }
 
 .moreTabContainer {
     display: flex;
     flex-direction: column;
-    background-color: grey;
+    /* background-color: grey; */
 
 }
 
@@ -68,18 +72,17 @@ html {
     display: block;
 }
 
-@media screen and (max-width: 540px) {    
-    .mobileMenu {
-        min-width: 210px;
-    }
-
-    /* .menuItem {
-        position: relative;
-        /* height: 100%; */
-    } */
+a:hover {
+    background-color: rgb(71, 104, 194);
 }
 
-@media screen and (max-width: 420px) {
+a:active {
+    background-color: green;
+    border: 3px inset rgb(0, 51, 75)
+}
+
+
+@media screen and (max-width: 300px) {
     .flexContainer {
         justify-content: space-between;
     }
