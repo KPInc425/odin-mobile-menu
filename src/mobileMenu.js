@@ -1,7 +1,4 @@
-
-// import './style.css' assert { type: 'css' };
-const src = '../src/media/iLG(pricedown)128px.png';
-
+import src from './media/iLG(pricedown)128px.png';
 
 const el_dropDownMenu = () => {
     const moreMenuContainer = document.querySelector('.moreTabContainer');
